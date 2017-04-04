@@ -53,6 +53,17 @@
                             <li><a href="{{ route('tournament.create') }}">{{ trans('menu.create') }}</a></li>
                         @endif
                     </ul>
+                    <ul class="nav navbar-nav">
+                      <li class="text-left">
+                        {{ Form::open(array('route' => 'tournament.search', 'class' => 'search-form')) }}
+                          <div class="form-group has-feedback">
+                            <i class="fa fa-search form-control-feedback"></i>
+                            <label for="search" class="sr-only">Search</label>
+                            <input type="text" class="form-control" name="phrase" placeholder="{{ trans('menu.search') }}" autocomplete="off">
+                          </div>
+                        {{ Form::close() }}
+                      </li>
+                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -86,6 +97,7 @@
                             </li>
                         @endif
                     </ul>
+
                 </div>
             </div>
         </nav>

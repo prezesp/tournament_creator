@@ -32,6 +32,13 @@ Route::resource('comment', 'CommentController');
 
 Route::resource('sport', 'SportController');
 
+Route::post('/tournament/search',[
+    'as' => 'tournament.search',
+    'uses' => 'TournamentController@search'
+]);
+
+//Route::post('tournament.search', 'TournamentController@search');
+
 Route::get('/users/search/{username}', 'UserController@search')->middleware('auth');
 
 Route::get('locale/{locale?}',

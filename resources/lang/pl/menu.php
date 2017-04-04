@@ -7,5 +7,6 @@ return [
     'login' => 'Logowanie',
     'register' => 'Rejestracja',
     'logout' => 'Wyloguj się',
+    'search' => 'Szukaj',
 
 ];

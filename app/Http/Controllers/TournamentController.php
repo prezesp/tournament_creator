@@ -175,4 +175,18 @@ class TournamentController extends Controller
 
       return redirect('tournament/'.$tournament->id);
     }
+
+    public function search(Request $request)
+    {
+      $phrase = $request->input('phrase');
+      $request->session()->forget('message');
+      if (strlen($phrase) < 3)
+      {
+        $message = 'Too short phrase (min 3. chars)';
+        $request->session()->flash('message', $message);
+        return view('tournament.search', ['tournaments' => []]);
+      }
+      $tournaments = Tournament::where('name', 'like', '%'.$phrase.'%')->get();
+      return view('tournament.search', ['tournaments' => $tournaments]);
+    }
 }
