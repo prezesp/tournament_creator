@@ -48,7 +48,7 @@
                   <label class="col-sm-3 control-label">{{ trans('tournament.date') }}</label>
                   <div class="col-sm-8">
                     <div class='input-group date'>
-                      <input type='text' name="date" class="form-control" pattern="^[0-9]{4,}\-[0-9]{2}\-[0-9]{2}$" required/>
+                      <input type='text' name="date" class="form-control" pattern="^[0-9]{4,}-[0-9]{2}-[0-9]{2}$" required/>
                       <span class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </span>
@@ -121,10 +121,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group alerts">
                     <div class="col-sm-offset-3 col-sm-8">
                       <div class="alert alert-danger" style="display:none">
                         <strong>{{ trans('common.warning') }}!</strong> {{ trans('tournament.twice_same_team_warning') }}
+                      </div>
+                      <div class="alert alert-danger alert-dismissable" style="display:none">
+                        <button type="button" class="close" aria-hidden="true" onclick="$(this).parent().hide()">&times;</button>
+                        <strong>{{ trans('common.warning') }}!</strong> {{ trans('tournament.empty_names_warning') }}
                       </div>
                     </div>
                   </div>
@@ -255,6 +259,13 @@ $( document ).ready(function() {
       // Nothing is active so it is a new value (or maybe empty value)
     }
   });
+
+  $('#app form').on('submit', function(e) {
+    var valid = plugin.teams_plugin('validate');
+    if (!valid) {
+      e.preventDefault();
+    }
+  })
 });
 
 

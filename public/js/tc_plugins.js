@@ -155,8 +155,9 @@ var shuffle = function (a) {
     type = 'GP';
 
     // znalezienie kontrolek
-    var mod_plugin_container = $(this);
-    var mod_alert     = $(this).find('.alert-danger').first();
+    var mod_plugin_container  = $(this);
+    var mod_alert_duplicates  = $(this).find('.alert-danger').eq(0);
+    var mod_alert_empty       = $(this).find('.alert-danger').eq(1);
 
     // metody publiczne
     var methods = {
@@ -165,6 +166,9 @@ var shuffle = function (a) {
           type = args['type'];
           mod_plugin_container.find('input[name="group_counter"]').closest(".form-group").css('display', (type == "GP") ? 'block': 'none');
           mod_plugin_container.find('.group-name').css('display', (type == "GP") ? 'inline-block': 'none');
+        },
+        validate: function() {
+          return validate();
         }
     };
 
@@ -172,6 +176,7 @@ var shuffle = function (a) {
     // sprawdzenie duplikatów
     function hasDuplicate(callback) {
       var inputs = mod_plugin_container.find('input[name="teams[]"]');
+      var has_empty = false;
       var valid = true;
       inputs.each(function(i) {
         var that = this;
@@ -180,20 +185,31 @@ var shuffle = function (a) {
             if (i!=j) {
               if ($(that).val() == $(this).val()) {
                 valid = false;
-                return false;
               }
             }
           });
+        } else {
+          has_empty = true;
         }
       });
-      callback(valid);
+      callback(valid, has_empty);
     }
 
     // walidacja pluginu
-    function validate() {
-      hasDuplicate(function (valid) {
-        mod_alert.css('display', valid ? 'none' : 'block');
+    function dynamicValidate() {
+      validate(true)
+    }
+    function validate(omit_empty_fields) {
+      var result = 'a';
+      hasDuplicate(function (valid, hasEmpty) {
+        mod_alert_duplicates.css('display', valid ? 'none' : 'block');
+        if (!omit_empty_fields) {
+          mod_alert_empty.css('display', !hasEmpty ? 'none' : 'block');
+        }
+
+        result = (valid && !hasEmpty);
       });
+      return result;
     }
 
     // usunięcie itemu
@@ -202,7 +218,7 @@ var shuffle = function (a) {
       $(that).remove();
       mod_plugin_container.find('input[name="teams[]"]')[index-2].focus();
       calculateGroups();
-      validate();
+      dynamicValidate();
     };
 
     // dodanie itemu
@@ -260,7 +276,7 @@ var shuffle = function (a) {
         }
       });
       item_input.keyup(function(e) {
-        validate();
+        dynamicValidate();
       });
 
       // przeliczenie grup
@@ -284,9 +300,12 @@ var shuffle = function (a) {
       });
     };
 
-    return this.each(function () {
+    var methodOutput;
+
+    this.each(function () {
       if (methods[options]) {
-        return methods[options].apply( this, arguments);
+        methodOutput = methods[options].apply( this, arguments);
+        return methodOutput;
       }
       else if (!options)
       {
@@ -328,6 +347,11 @@ var shuffle = function (a) {
         return this;
       }
     });
+    if (methodOutput != undefined) {
+      return methodOutput;
+    } else {
+      return this;
+    }
   };
   // END MOD
 }( window.jQuery );

@@ -24,6 +24,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/tournament/search',[
+    'as' => 'tournament.search',
+    'uses' => 'TournamentController@search'
+]);
+
 Route::resource('tournament', 'TournamentController');
 
 Route::resource('game', 'GameController');
@@ -32,12 +37,8 @@ Route::resource('comment', 'CommentController');
 
 Route::resource('sport', 'SportController');
 
-Route::post('/tournament/search',[
-    'as' => 'tournament.search',
-    'uses' => 'TournamentController@search'
-]);
 
-//Route::post('tournament.search', 'TournamentController@search');
+
 
 Route::get('/users/search/{username}', 'UserController@search')->middleware('auth');
 

@@ -1,8 +1,8 @@
-<div class="welcome-small">
+<div class="breadcrumb-panel">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-right">
-        <div class="text">
+        <div class="shadow-text">
           {{ strToLower($title) }}
         </div>
 

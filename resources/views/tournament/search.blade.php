@@ -51,7 +51,8 @@
                       </a>
                     </div>
                   @endforeach
-
+                  
+                  {!! $tournaments->render() !!}
               </div>
           </div>
       </div>

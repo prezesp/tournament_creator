@@ -45,7 +45,9 @@
                     </a>
                 </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                @include('layouts.mobile_menu')
+
+                <div class="collapse navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('tournament.index') }}">{{ trans('menu.browse') }}</a></li>
@@ -55,11 +57,11 @@
                     </ul>
                     <ul class="nav navbar-nav">
                       <li class="text-left">
-                        {{ Form::open(array('route' => 'tournament.search', 'class' => 'search-form')) }}
+                        {{ Form::open(array('route' => 'tournament.search', 'class' => 'search-form', 'method' => 'GET')) }}
                           <div class="form-group has-feedback">
                             <i class="fa fa-search form-control-feedback"></i>
                             <label for="search" class="sr-only">Search</label>
-                            <input type="text" class="form-control" name="phrase" placeholder="{{ trans('menu.search') }}" autocomplete="off">
+                            <input type="text" class="form-control" name="q" placeholder="{{ trans('menu.search') }}" autocomplete="off" maxlength="32" value="{{ isset($_GET['q']) ? $_GET['q'] : ''}}">
                           </div>
                         {{ Form::close() }}
                       </li>
@@ -67,6 +69,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+
                         @include('layouts/lang_chooser')
                         <!-- Authentication Links -->
                         @if (Auth::guest())

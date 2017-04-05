@@ -38,6 +38,7 @@ return [
     'add_team' => 'Add team',
     'shuffle' => 'Shuffle',
     'twice_same_team_warning' => 'You have entered twice the same team.',
+    'empty_names_warning' => 'Team names can not be empty.',
 
     'summary' => 'Summary',
     'create' => 'Create',

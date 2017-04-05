@@ -9,11 +9,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <!--ol class="breadcrumb">
-              <li><a href="{{ url('/home') }}"><i class="fa fa-home"></i></a></li>
-              <li><a href="{{ route('tournament.index') }}">{{ trans('tournament.tournaments') }}</a></li>
-              <li class="active">{{ $tournament->name }}</li>
-            </ol-->
             @if( Session::has('message') )
               <div class="alert alert-success alert-dismissable">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -23,10 +18,10 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <div class="row">
-                  <div class="col-xs-8">
+                  <div class="col-xs-7">
                     {{ trans('tournament.tournament') }}
                   </div>
-                  <div class="col-xs-4 pull-right">
+                  <div class="col-xs-5 pull-right">
                     <div class="pull-right">
                       <div class="dropdown">
                         {{ Form::open([ 'method'  => 'delete', 'route' => [ 'tournament.destroy', $tournament->id ] ]) }}

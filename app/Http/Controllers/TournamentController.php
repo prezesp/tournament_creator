@@ -178,7 +178,7 @@ class TournamentController extends Controller
 
     public function search(Request $request)
     {
-      $phrase = $request->input('phrase');
+      $phrase = $request->input('q');
       $request->session()->forget('message');
       if (strlen($phrase) < 3)
       {
@@ -186,7 +186,11 @@ class TournamentController extends Controller
         $request->session()->flash('message', $message);
         return view('tournament.search', ['tournaments' => []]);
       }
-      $tournaments = Tournament::where('name', 'like', '%'.$phrase.'%')->get();
+      $tournaments = Tournament::where('is_private', false)
+                               ->orderBy('id', 'desc')
+                               ->where('name', 'like', '%'.$phrase.'%')
+                               ->paginate(10);
+
       return view('tournament.search', ['tournaments' => $tournaments]);
     }
 }

@@ -37,6 +37,7 @@ return [
     'add_team' => 'Dodaj drużynę',
     'shuffle' => 'Losuj',
     'twice_same_team_warning' => 'Wprowadziłeś dwa razy tę samą drużynę',
+    'empty_names_warning' => 'Nazwy zespołów nie mogą być puste.',
 
     'summary' => 'Podsumowanie',
     'create' => 'Utwórz',
