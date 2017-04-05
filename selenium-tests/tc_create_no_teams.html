@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://creator.basketballclassic.pl/" />
+<title>tc_create_no_teams</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tc_create_no_teams</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=email</td>
+	<td>test@test.pl</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>testpass</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=description</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=date</td>
+	<td>2000-01-01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=date</td>
+	<td>2001-01-01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=sport_name</td>
+	<td>Basketball</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='app']/div[2]/div/div/form/div[2]/div[2]/div/div[3]/div/div[2]</td>
+	<td>× Warning! Team names can not be empty.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=testuser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
