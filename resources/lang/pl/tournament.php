@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    '16r' => '1/8 finału',
     'qt' => 'Ćwierćfinały',
     'sf' => 'Półfinały',
     '3rd' => 'Mecz o trzecie miejsce',
@@ -30,6 +30,10 @@ return [
     'private_event' => 'Wydarzenie prywatne',
     'type' => 'Typ',
     'seeds' => 'Miejsca w playoff',
+    '2seed' => '2 - Finał',
+    '4seed' => '4 - Półfinały i finał',
+    '8seed' => '8 - Ćwierćfinały, półfinały i finał',
+    '16seed' => '16 - 1/8 finału, ćwierćfinały, półfinały i finał',
     'points' => 'Punktowanie',
 
     'teams' => 'Drużyny',

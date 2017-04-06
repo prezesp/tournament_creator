@@ -2,6 +2,7 @@
 
 return [
 
+    '16r' => 'Octavos de final',
     'qt' => 'Cuartos de final',
     'sf' => 'Semifinales',
     '3rd' => 'Tercer lugar',
@@ -20,5 +21,10 @@ return [
     'comments' => 'Comentarios',
     'schedule' => 'Programar',
     'group' => 'Grupo',
+
+    '2seed' => '2 - Final',
+    '4seed' => '4 - Semifinales y final',
+    '8seed' => '8 - Cuartos de final, semifinales y final',
+    '16seed' => '16 - Octavos de final, cuartos de final, semifinales y final',
 
 ];

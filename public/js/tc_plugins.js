@@ -158,6 +158,7 @@ var shuffle = function (a) {
     var mod_plugin_container  = $(this);
     var mod_alert_duplicates  = $(this).find('.alert-danger').eq(0);
     var mod_alert_empty       = $(this).find('.alert-danger').eq(1);
+    var mod_team_counter      = $(this).find('.team_counter').eq(0);
 
     // metody publiczne
     var methods = {
@@ -195,16 +196,26 @@ var shuffle = function (a) {
       callback(valid, has_empty);
     }
 
-    // walidacja pluginu
+    // dynamiczna walidacja nie uwzględnia pustych pól (bo dynamicznie dodajemy)
     function dynamicValidate() {
-      validate(true)
+      validate(true);
+      mod_team_counter.html('(' + mod_plugin_container.find('input[name="teams[]"]').length + ')');
     }
+
+    // walidacja pluginu
     function validate(omit_empty_fields) {
       var result = 'a';
       hasDuplicate(function (valid, hasEmpty) {
         mod_alert_duplicates.css('display', valid ? 'none' : 'block');
         if (!omit_empty_fields) {
           mod_alert_empty.css('display', !hasEmpty ? 'none' : 'block');
+        } else {
+          // pomijanie sprawdzania czy pole jest puste
+          // jednak jeśli wszystkie są uzupełnione to ukrywamy komunikat
+          // przy edycji, gdy pojawia sie pole nie chcemy od razu pokazywać alertu
+          if (!hasEmpty) {
+            mod_alert_empty.css('display', 'none');
+          }
         }
 
         result = (valid && !hasEmpty);

@@ -9,46 +9,84 @@ use App\Game;
 class GameGeneratorController extends Controller
 {
     //
-    public function generateGroupGames($group)
+    public function generateGroupGames($group, $teams)
     {
-      $games = array();
-      $visited = array();
-      foreach ($group->teams as $home) {
-          $i = 0;
-          foreach ($group->teams as $away) {
-              if ($home != $away and !in_array($away, $visited)) {
-                  $game = new Game;
-                  //$game->home_score = 0;
-                  //$game->away_score = 0;
+      // podziel na pół.
+      $len = count($teams);
 
-                  if ($i++ % 2 == 0) {
-                      $game->home()->associate($home);
-                      $game->away()->associate($away);
-                  } else {
-                      $game->home()->associate($away);
-                      $game->away()->associate($home);
-                  }
-                  $game->group()->associate($group);
-                  $game->stage = "g";
-                  //$game->Stage = 0; // group stage
-                  //$game->IsFinal = 0;
-                  //$game->Tournament = new Tournament();
-                  //$game->Tournament->Id = $group->TournamentId;
-                  $game->save();
-                  array_push($games, $game);
-              }
-          }
-          array_push($visited, $home);
+      $home = array_slice($teams, 0, $len / 2);
+      $away = array_slice($teams, $len / 2);
+      $away = array_reverse($away);
+
+      $dummy = 'dummy';
+      if (count($home) < count($away))
+      {
+        array_push($home, $dummy);
+      }
+
+      // Wygenerowanie rund
+      $rounds = array();
+      // dla każdej rundy
+      for ($i=0; $i< count($away) + count($home) - 1; $i++)
+      {
+        // zamień strony i połącz w pary drużyny z grup
+        if ($i % 2 == 0)
+        {
+          $pairs = array_map(null, $home, $away);
         }
-        return $games;
-    }
+        else
+        {
+          $pairs = array_map(null, $away, $home);
+        }
+        array_push($rounds, $pairs);
 
+
+        // zamiana drużyn w grupach
+        $item1 = array_shift($away);
+        $item2 = array_pop($home);
+
+        array_push($away, $item2);
+        array_splice($home, 1, 0, array($item1));
+      }
+
+      // Utworzenie gier
+      $games = array();
+      foreach ($rounds as $round)
+      {
+        foreach ($round as $g)
+        {
+          if ($g[0] != $dummy && $g[1] != $dummy)
+          {
+            $game = new Game;
+            $game->home()->associate($g[0]);
+            $game->away()->associate($g[1]);
+            $game->group()->associate($group);
+            $game->stage = "g";
+            $game->save();
+            array_push($games, $game);
+          }
+        }
+      }
+
+      return $games;
+    }
 
     public function generatePlayoffGames($tournament)
     {
       $games = array();
-      
+
       switch ($tournament->seeds) {
+          case 16: {
+              // quarterfinals
+              for ($i = 0; $i < 8; $i++) {
+                  $game = new Game;
+                  $game->tournament()->associate($tournament);
+                  $game->stage = "16r";
+                  $game->save();
+                  array_push($games, $game);
+              }
+          }
+          case 16:
           case 8: {
               // quarterfinals
               for ($i = 0; $i < 4; $i++) {
@@ -59,6 +97,7 @@ class GameGeneratorController extends Controller
                   array_push($games, $game);
               }
           }
+          case 16:
           case 8:
           case 4: {
               // semifinals
@@ -70,6 +109,7 @@ class GameGeneratorController extends Controller
                   array_push($games, $game);
               }
           }
+          case 16:
           case 8:
           case 4:
           case 2: {

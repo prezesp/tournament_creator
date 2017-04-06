@@ -115,7 +115,7 @@ class TournamentController extends Controller
           $group->teams()->saveMany($teams);
 
           // Wygenerowanie meczów dla każdej z grup
-          $gameGenController->generateGroupGames($group);
+          $gameGenController->generateGroupGames($group, $teams);
         }
         $tournament->save();
 

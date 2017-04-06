@@ -69,7 +69,7 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">{{ trans('tournament.seeds') }}</label>
                   <div class="col-sm-8">
-                    {{ Form::select('seeds', array('0' => '0', '2' => '2', '4' => '4', '8' => '8'), '0', array('class' => 'form-control')) }}
+                    {{ Form::select('seeds', array('2' => trans('tournament.2seed'), '4' => trans('tournament.4seed'), '8' => trans('tournament.8seed'), '16' => trans('tournament.16seed')), '2', array('class' => 'form-control')) }}
                   </div>
                 </div>
                 <div class="form-group">
@@ -115,7 +115,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">{{ trans('tournament.teams') }}</label>
+                    <label class="col-sm-3 control-label">{{ trans('tournament.teams') }} <span class='team_counter'></span></label>
                     <div class="col-sm-8 item-container">
                       <div class="input-group group-div">
                       </div>

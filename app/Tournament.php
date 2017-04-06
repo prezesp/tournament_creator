@@ -56,7 +56,7 @@ class Tournament extends Model
     public function playoff()
     {
       $playoff = array();
-      $stages = array('qt', 'sf', '3rd', 'f');
+      $stages = array('16r', 'qt', 'sf', '3rd', 'f');
 
       foreach ($stages as $st)
       {

@@ -2,6 +2,7 @@
 
 return [
 
+    '16r' => 'Round of 16',
     'qt' => 'Quarter finals',
     'sf' => 'Semi finals',
     '3rd' => 'Third place play-off',
@@ -31,6 +32,10 @@ return [
     'private_event' => 'Private event',
     'type' => 'Type',
     'seeds' => 'Seeds in playoff',
+    '2seed' => '2 - Final',
+    '4seed' => '4 - Semi finals and final',
+    '8seed' => '8 - Quarter final, semi finals and final',
+    '16seed' => '16 - Round of 16, quarter final, semi finals and final',
     'points' => 'Points',
 
     'teams' => 'Teams',

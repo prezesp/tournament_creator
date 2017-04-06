@@ -53,8 +53,10 @@ $languages = array_diff($languages, array($current_lang));
               </div>
             @else
               <div class="col-xs-2 navbar-mobile-button">
+              </div>
+              <div class="col-xs-2 navbar-mobile-button">
                 <a href="{{ route('login') }}" class="thumbnail text-center" title="{{ trans('menu.login') }}">
-                  <i class="fa fa-user-plus" aria-hidden="true"></i>
+                  <i class="fa fa-user" aria-hidden="true"></i>
                 </a>
               </div>
             @endif
