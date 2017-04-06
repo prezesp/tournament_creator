@@ -45,12 +45,12 @@ function mb_str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_
 
 ?>
 
-{{ $tournament->name."\r\n" }}
-{{ $tournament->description."\r\n" }}
-{{ $tournament->date."\r\n" }}
+{{ $tournament->name.PHP_EOL }}
+{{ $tournament->description.PHP_EOL }}
+{{ $tournament->date.PHP_EOL }}
 
 @foreach ($tournament->groups as $group)
-{{ trans('tournament.group')." ".$group->name."\r\n" }}
+{{ trans('tournament.group')." ".$group->name.PHP_EOL }}
 <?php $pos = 0; ?>
 @foreach ($group->ranking() as $rank)
 <?php
@@ -60,7 +60,7 @@ function mb_str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_
     $v[] = $rank->game_count;
     $v[] = $rank->points;
     $v[] = $rank->balance_plus." - ".$rank->balance_minus;
-    echo vsprintf("%-3s %s %-3d\t %-3d\t %-10s", $v)."\r\n";
+    echo vsprintf("%-3s %s %-3d\t %-3d\t %-10s", $v).PHP_EOL;
 ?>
 @endforeach
 
@@ -73,10 +73,28 @@ function mb_str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_
     $v[] = mb_str_pad($res, 10 - count($res), " ", STR_PAD_BOTH);
     $away = empty($game->away) ? "no selected" : $game->away->name;
     $v[] = mb_str_pad($away, 30 - count($away));
-    echo vsprintf("%s %s %s", $v)."\r\n";
+    echo vsprintf("%s %s %s", $v).PHP_EOL;
 ?>
 @endforeach
 
+
+
+@endforeach
+
+@foreach ($tournament->playoff() as $stage => $games)
+{{ trans('tournament.'.$stage) }}
+@foreach ($games as $game)
+<?php
+    $v = [];
+    $home = empty($game->home) ? "no selected" : $game->home->name;
+    $v[] = mb_str_pad($home, 30 - count($home));
+    $res = $game->home_score." : ".$game->away_score;
+    $v[] = mb_str_pad($res, 10 - count($res), " ", STR_PAD_BOTH);
+    $away = empty($game->away) ? "no selected" : $game->away->name;
+    $v[] = mb_str_pad($away, 30 - count($away));
+    echo vsprintf("%s %s %s", $v).PHP_EOL;
+?>
+@endforeach
 
 
 @endforeach
