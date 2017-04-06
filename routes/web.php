@@ -29,6 +29,11 @@ Route::get('/tournament/search',[
     'uses' => 'TournamentController@search'
 ]);
 
+Route::get('/tournament/export/{id}',[
+    'as' => 'tournament.export',
+    'uses' => 'TournamentController@export'
+]);
+
 Route::resource('tournament', 'TournamentController');
 
 Route::resource('game', 'GameController');

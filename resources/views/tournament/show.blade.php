@@ -33,7 +33,7 @@
                           @if ($tournament->user == Auth::user() || $tournament->moderators->contains(Auth::user()))
                             <li><a href="{{ route('tournament.edit', $tournament->id) }}">{{ trans('tournament.edit') }}</a></li>
                           @endif
-                          <li><a href="#">{{ trans('tournament.export') }}</a></li>
+                          <li><a href="{{ route('tournament.export', $tournament->id) }}" target="_blank">{{ trans('tournament.export') }}</a></li>
                           @if ($tournament->user == Auth::user())
                             <li role="separator" class="divider"></li>
                             <li><a href="#" class="data-delete">{{ trans('tournament.delete') }}</a></li>

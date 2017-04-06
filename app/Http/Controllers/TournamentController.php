@@ -193,4 +193,10 @@ class TournamentController extends Controller
 
       return view('tournament.search', ['tournaments' => $tournaments]);
     }
+
+    public function export($tournamentId)
+    {
+        $tournament = Tournament::find($tournamentId);
+        return view('tournament.export', ['tournament' => $tournament]);
+    }
 }
