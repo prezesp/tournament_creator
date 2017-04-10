@@ -26,6 +26,18 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label class="col-sm-3 control-label">Sport</label>
+                    <div class="col-sm-8">
+                      <div class='input-group'>
+                        <input name='sport_name' type='text' class="form-control btn-search" autocomplete="off" required value="{{ !empty($tournament->sport) ? trans('sports.'.$tournament->sport) : '' }}"/>
+                        <span class="input-group-addon btn-inside">
+                          <i class="fa fa-search"></i>
+                        </span>
+                      </div>
+                      <input name='sport' type='hidden' class="form-control" value="{{ $tournament->sport }}"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label class="col-sm-3 control-label">{{ trans('tournament.webpage') }}</label>
                     <div class="col-sm-8">
                       {{ Form::text('webpage', $tournament->www, array('class' => 'form-control', 'placeholder' => 'www.your-site.com')) }}
@@ -121,6 +133,35 @@ $( document ).ready(function() {
     $(this).trigger('input')
   }).data('datepicker');
 
+  // typeahead
+  var input = $("input[name=sport_name]");
+  $.get("{{ route('sport.index') }}", function(data) {
+    input.typeahead({
+      source: data,
+      autoSelect: true,
+      afterSelect: function(item) {
+        if (item != undefined) {
+          $("input[name=sport]").val(item.id);
+        }
+      }
+    });
+  },'json');
+
+  input.change(function() {
+    var current = input.typeahead("getActive");
+    if (current) {
+      // Some item from your model is active!
+      if (current.name == input.val()) {
+        // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
+      } else {
+        input.val('');
+        // This means it is only a partial match, you can either add a new item
+        // or take the active if you don't want new items
+      }
+    } else {
+      // Nothing is active so it is a new value (or maybe empty value)
+    }
+  });
 });
 </script>
 @endsection

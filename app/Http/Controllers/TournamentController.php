@@ -157,6 +157,7 @@ class TournamentController extends Controller
         $tournament->name = $request->input('name');
       }
       $tournament->description = $request->input('description');
+      $tournament->sport = $request->input('sport');
       $tournament->www = str_replace(array('http://', 'https://'), '', $request->input('webpage'));
       $tournament->is_private = empty($request->input('is_private')) ? false : $request->input('is_private');
       $tournament->date = $request->input('date');
@@ -194,9 +195,9 @@ class TournamentController extends Controller
       return view('tournament.search', ['tournaments' => $tournaments]);
     }
 
-    public function export($tournamentId)
+    public function export($tournamentId, $type = 'txt')
     {
         $tournament = Tournament::find($tournamentId);
-        return view('tournament.export', ['tournament' => $tournament]);
+        return view('tournament.export.'.$type, ['tournament' => $tournament]);
     }
 }

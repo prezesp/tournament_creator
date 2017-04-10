@@ -50,6 +50,7 @@ div.tooltip-inner {
 }
 /* end */
 
+
 .group-div {
   margin-bottom: -1px;
 }
@@ -92,7 +93,14 @@ div.tooltip-inner {
 }
 
 
-
+.vspace {
+  height: 30px;
+}
+.welcome-hr {
+  background: #eee;
+  height: 1px;
+  box-shadow: 0 -1px 4px rgba(255, 255, 255, 0.9);
+}
 #app {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -115,7 +123,7 @@ footer p {
 }
 
 body {
-  background: linear-gradient(to bottom, #f5f8fa 75%,#3097d1 100%);
+  /* background: linear-gradient(to bottom, #f5f8fa 75%,#3097d1 100%);*/
 }
 
 
@@ -125,7 +133,9 @@ body {
 .welcome {
   margin-top: -22px;
   background-image: url(../img/background.jpg);
-  background-position: center;
+  background: url(../img/raster.png) fixed,  url(../img/background.jpg) center 16px fixed;
+  background-repeat: inherit, no-repeat;
+
 }
 
 .welcome > .welcome-layer {
@@ -142,6 +152,7 @@ body {
 }
 .welcome .jumbotron h1 {
   font-size: 58px;
+  color: #fff;
 }
 
 
@@ -324,3 +335,77 @@ body {
   opacity: 0;
 }
 /*_____________________________________*/
+
+.bg-court-numbers {
+  background: url(../img/raster.png) fixed,  url(../img/basketballcourt.jpg) center center fixed;
+  background-size: auto, cover;
+  background-repeat: inherit, no-repeat;
+}
+.bg-court-numbers .vspace {
+  height: 50px;
+}
+.bg-court-numbers h3 {
+  color: #fff;
+}
+.bg-court-numbers .jumbotron {
+  background-color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+.bg-court-numbers .number {
+  padding-top: 10px;
+}
+.bg-court-numbers .number i {
+  font-size: 70px;
+  color: #3097d1;
+}
+.bg-court-numbers .number h4 {
+  color: #fff;
+}
+.bg-court-numbers .number p {
+  color: #fff;
+  font-size: 14px;
+}
+@media only screen and (max-width : 420px) {
+  .bg-court-numbers .number i {
+    font-size: 54px;
+  }
+}
+.trusted {
+  padding-top:20px;
+  padding-bottom:20px;
+}
+
+.trusted h3 {
+  margin: 0px;
+}
+
+@media(min-width: 768px) {
+  .vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+  }
+}
+@media(max-width: 768px) {
+  .img-responsive {
+    margin: 0 auto;
+  }
+}
+
+.img-center {
+  margin: 0 auto;
+}
+
+
+.signup {
+  border-top: 1px #ccc solid;
+  padding-top:100px;
+  padding-bottom:20px;
+  background: #3097d1;
+  color: #fff;
+}
+
+/* body {
+  background: #f5f8fa url(../img/sports/basketball.png) right center fixed;
+  background-repeat: no-repeat;
+}*/

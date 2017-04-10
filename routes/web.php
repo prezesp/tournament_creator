@@ -16,20 +16,27 @@ Route::get('/', function () {
   // TODO osobny controller (Home?)
   $t_c = App\Tournament::count();
   $g_c = App\Game::count();
+  $tm_c = App\Team::count();
   $u_c = App\User::count();
-  return view('index', ['tournaments' => $t_c, 'games' => $g_c, 'users' => $u_c]);
+  return view('index', ['tournaments' => $t_c, 'games' => $g_c,  'teams' => $tm_c, 'users' => $u_c]);
 });
 
 Auth::routes();
 
+Route::get('user/change', 'Auth\ChangePasswordController@index');
+Route::post('user/change', [
+    'as' => 'user.change',
+    'uses' => 'Auth\ChangePasswordController@postCredentials'
+]);
+
 Route::get('/home', 'HomeController@index');
 
-Route::get('/tournament/search',[
+Route::get('/tournament/search', [
     'as' => 'tournament.search',
     'uses' => 'TournamentController@search'
 ]);
 
-Route::get('/tournament/export/{id}',[
+Route::get('/tournament/{tournament}/export/{type?}', [
     'as' => 'tournament.export',
     'uses' => 'TournamentController@export'
 ]);

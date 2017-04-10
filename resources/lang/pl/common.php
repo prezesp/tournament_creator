@@ -3,5 +3,6 @@
 return [
 
     'warning' => 'Uwaga',
+    'close' => 'Zamknij',
 
 ];

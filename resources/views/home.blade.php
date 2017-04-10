@@ -16,6 +16,14 @@
               </div>
             @endif
             <div class="panel panel-default">
+              <div class="panel-heading">My profile</div>
+
+              <div class="panel-body">
+                <a href="{{ url('user/change') }}">Change password</a>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
                 <div class="panel-heading">My tournaments</div>
 
                 <div class="panel-body">

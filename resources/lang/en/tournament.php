@@ -52,4 +52,9 @@ return [
     'league' => 'League',
     'dynamic_league' => 'Dynamic League',
 
+    'export_options' => 'Export options',
+    'export_to' => 'Export to',
+    'games' => 'Games',
+    'group_standings' => 'Group standings',
+
 ];

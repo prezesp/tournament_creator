@@ -3,5 +3,6 @@
 return [
 
     'warning' => 'Warning',
+    'close' => 'Close',
 
 ];

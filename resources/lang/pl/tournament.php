@@ -49,4 +49,9 @@ return [
     'group_and_playoff' => 'Faza grupowa i pucharowa',
     'league' => 'Liga',
 
+    'export_options' => 'Opcje eksportu',
+    'export_to' => 'Eksport do',
+    'games' => 'Mecze',
+    'group_standings' => 'Klasyfikacja w grupach',
+
 ];
