@@ -135,8 +135,9 @@ var shuffle = function (a) {
 
      // przy inicjalizacji synchro
      if (synchronize_input != undefined) {
-       //
-       synchronize_input.val().replace(/[{}]/g, '').split(',').forEach( function (pair) {
+       var users = synchronize_input.val().replace(/[{}]/g, '').split(',');
+       synchronize_input.val('');
+       users.forEach( function (pair) {
          var id     = pair.split(':')[1];
          var value  = pair.split(':')[0].replace(/['"]+/g, '');
 

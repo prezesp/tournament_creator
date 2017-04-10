@@ -165,7 +165,14 @@ class TournamentController extends Controller
       // tylko onwer może modyfikować moderatorów
       if ($tournament->user == Auth::user())
       {
-        $moderators = explode(',', $request->input('moderators'));
+        if (empty($request->input('moderators')))
+        {
+          $moderators = [];
+        }
+        else
+        {
+          $moderators = explode(',', $request->input('moderators'));
+        }
         $tournament->moderators()->sync($moderators);
       }
 
