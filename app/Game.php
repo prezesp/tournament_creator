@@ -38,12 +38,50 @@ class Game extends Model
   {
     if ($this->home_score > $this->away_score)
     {
+      if (empty($this->home))
+      {
+        return $this->tournament->getSeed($this->home_seed);
+      }
       return $this->home;
     }
     else if ($this->home_score < $this->away_score)
     {
+      if (empty($this->away))
+      {
+        return $this->tournament->getSeed($this->away_seed);
+      }
       return $this->away;
     }
     return null;
+  }
+
+  public function loser()
+  {
+    if ($this->home_score < $this->away_score)
+    {
+      if (empty($this->home))
+      {
+        return $this->tournament->getSeed($this->home_seed);
+      }
+      return $this->home;
+    }
+    else if ($this->home_score > $this->away_score)
+    {
+      if (empty($this->away))
+      {
+        return $this->tournament->getSeed($this->away_seed);
+      }
+      return $this->away;
+    }
+    return null;
+  }
+
+  public function isOver()
+  {
+    if ($this->home_score == NULL || $this->away_score == NULL)
+    {
+      return false;
+    }
+    return true;
   }
 }

@@ -79,7 +79,7 @@ class Group extends Model
       }
       array_push($ranking_list, $rank);
     }
-    
+
     // sortowanie
     usort($ranking_list, function($a, $b)
     {
@@ -98,5 +98,17 @@ class Group extends Model
     });
 
     return $ranking_list;
+  }
+
+  public function isOver()
+  {
+    foreach ($this->games as $game)
+    {
+      if(!$game->isOver())
+      {
+        return false;
+      }
+    }
+    return true;
   }
 }

@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    @include('tournament.scripts.update-game-js', ['settings' => (object) ['view' => 'groups_and_playoff_view', 'section' => 'mod-playoff']])
+    @include('tournament.scripts.update-game-js', ['settings' => (object) ['view' => 'groups_and_playoff_view', 'section' => 'mod-playoff', 'po' => true]])
   @endsection
 
   @if (isset($_GET['playoff']))

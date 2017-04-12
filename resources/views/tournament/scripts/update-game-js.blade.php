@@ -28,6 +28,10 @@ $(function () {
         home_id     : $('select[name=home_id]', this).val(),
         away_id     : $('select[name=away_id]', this).val(),
       @endif
+      @if (!empty($settings->po))
+        home_seed   : $('select[name=home_seed]', this).val(),
+        away_seed   : $('select[name=away_seed]', this).val(),
+      @endif
       home_score  : $('input[name=home_score]', this).val(),
       away_score  : $('input[name=away_score]', this).val(),
       game_time   : $('input[name=game_time]', this).val(),

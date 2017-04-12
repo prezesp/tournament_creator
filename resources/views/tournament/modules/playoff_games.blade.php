@@ -7,20 +7,26 @@
       <tr>
         <td class="match-date col-md-1">{{ empty($game->game_time) ? '00:00' : $game->game_time }}</td>
         <td class="col-md-4 text-center">
-          @if (!empty($game->home) && $game->winner() == $game->home)
-            <strong>{{ $game->home->name }}</strong>
+          <?php
+            $home = !empty($game->home) ? $game->home : $tournament->getSeed($game->home_seed);
+           ?>
+          @if ($game->winner() == $home)
+            <strong>{!! $home instanceof App\Team ? $home->name : $home !!}</strong>
           @else
-            {!! empty($game->home) ? "<i>no selected</i>" : $game->home->name !!}
+            {!! $home instanceof App\Team ? $home->name : $home !!}
           @endif
         </td>
         <td class="col-md-1 text-right">{{ $game->home_score }}</td>
         <td class="text-center">:</td>
         <td class="col-md-1">{{ $game->away_score }}</td>
         <td class="col-md-4 text-center">
-          @if (!empty($game->away) && $game->winner() == $game->away)
-            <strong>{{ $game->away->name }}</strong>
+          <?php
+            $away = !empty($game->away) ? $game->away : $tournament->getSeed($game->away_seed);
+           ?>
+          @if ($game->winner() == $away)
+            <strong>{!! $away instanceof App\Team ? $away->name : $away !!}</strong>
           @else
-            {!! empty($game->away) ? "<i>no selected</i>" : $game->away->name !!}
+            {!! $away instanceof App\Team ? $away->name : $away !!}
           @endif
         </td>
         @if ($tournament->user == Auth::user() || $tournament->moderators->contains(Auth::user()))
@@ -33,8 +39,15 @@
 </div>
 @endforeach
 
+<?php
+  // pierwsza faza dla typu 'P' jest nieedytowalna
+  $only_score = $tournament->type == 'P';
+ ?>
 @foreach ($tournament->playoff() as $stage => $games)
   @foreach ($games as $game)
-    @include('tournament/modules/game_modal', [ 'game' => $game, 'teams' => $tournament->teamsForPlayoff() ])
+    @include('tournament/modules/po_game_modal', [ 'game' => $game, 'teams' => $tournament->getRoundSeeds($stage), 'only_score' => $only_score])
   @endforeach
+  <?php
+    $only_score = false;
+   ?>
 @endforeach

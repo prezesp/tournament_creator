@@ -27,6 +27,14 @@ class GameController extends Controller
         {
           $game->away()->associate(Team::find($request->input('away_id')));
         }
+        if (!empty($request->input('home_seed')))
+        {
+          $game->home_seed = $request->input('home_seed');
+        }
+        if (!empty($request->input('away_seed')))
+        {
+          $game->away_seed = $request->input('away_seed');
+        }
         $game->game_time = $request->input('game_time');
         $game->home_score = $request->input('home_score');
         $game->away_score = $request->input('away_score');
@@ -34,7 +42,7 @@ class GameController extends Controller
         $game->save();
         if (config('app.debug'))
         {
-          usleep(300000);
+          ;//usleep(300000);
         }
 
         if($request->ajax())
