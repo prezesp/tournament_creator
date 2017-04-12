@@ -7,19 +7,19 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          {{ Form::open(array('route' => 'tournament.store', 'class' => 'form-horizontal', 'data-toggle' => 'validator' )) }}
+          {{ Form::open(array('route' => 'tournament.store', 'class' => 'form-horizontal', 'data-toggle' => 'validator')) }}
             <div class="panel panel-default">
               <div class="panel-heading">{{ trans('tournament.create_tournament') }}</div>
 
               <div class="panel-body">
                 @if (count($errors) > 0)
-                    <div class="alert alert-danger alert-dismissable">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                  <div class="alert alert-danger alert-dismissable">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
                 @endif
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">{{ trans('tournament.name') }}</label>
@@ -43,7 +43,7 @@
                       </span>
 
                     </div>
-                    <input name='sport' type='hidden' class="form-control"/>
+                    <input name='sport' type='hidden' class="form-control" value="{{ old('sport') }}"/>
                   </div>
                 </div>
                 <div class="form-group">
@@ -287,6 +287,14 @@ $( document ).ready(function() {
   // typeahead
   var input = $("input[name=sport_name]");
   $.get("{{ route('sport.index') }}", function(data) {
+    var sport = $("input[name=sport]").val();
+    for (var i=0; sport.length>0 && i<data.length; i++) {
+      if (sport == data[i].id) {
+        input.val(data[i].name);
+        break;
+      }
+    }
+
     input.typeahead({
       source: data,
       autoSelect: true,

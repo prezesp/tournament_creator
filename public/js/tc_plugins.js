@@ -151,29 +151,26 @@ var shuffle = function (a) {
   // END MOD
 
   // MOD TEAMS
+  var $teams_plugin_type = 'GP'; // domyślny typ
   $.fn.teams_plugin = function(options, args) {
-    // domyślny typ
-    var type = 'GP';
-
     // znalezienie kontrolek
     var mod_plugin_container  = $(this);
     var mod_alert_duplicates  = $(this).find('.alert-danger').eq(0);
     var mod_alert_empty       = $(this).find('.alert-danger').eq(1);
     var mod_team_counter      = $(this).find('.team_counter').eq(0);
 
-    var self = this;
     // metody publiczne
     var methods = {
         setType: function() {
           //wystawiona metoda
-          self.type = args['type'];
-          mod_plugin_container.find('input[name="group_counter"]').closest(".form-group").css('display', (self.type == "GP") ? 'block': 'none');
-          mod_plugin_container.find('.group-name').css('display', (self.type == "GP") ? 'inline-block': 'none');
+          $teams_plugin_type = args['type'];
+          mod_plugin_container.find('input[name="group_counter"]').closest(".form-group").css('display', ($teams_plugin_type == "GP") ? 'block': 'none');
+          mod_plugin_container.find('.group-name').css('display', ($teams_plugin_type == "GP") ? 'inline-block': 'none');
         },
         validate: function() {
           customValidator = args['custom_validator'];
           var itemCount = mod_plugin_container.find('input[name="teams[]"]').length;
-          return customValidator(self.type, itemCount) && validate();
+          return customValidator($teams_plugin_type, itemCount) && validate();
         },
         initByValues: function() {
           var items = args['items'];
@@ -273,7 +270,7 @@ var shuffle = function (a) {
       item_buttons.append($('<button/>', {
         'class': 'btn btn-default btn-sm group-name',
         'type' : 'button'
-      })).find('.group-name').css('display', (type == 'GP') ? 'inline-block': 'none');
+      })).find('.group-name').css('display', ($teams_plugin_type == 'GP') ? 'inline-block': 'none');
 
       item.append(item_input);
       item.append(item_buttons);

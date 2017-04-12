@@ -19,6 +19,7 @@ class TournamentController extends Controller
       $messages = [
         'name.required' => 'Please enter name',
         'description.required' => 'Please enter description',
+        'teams.*.array_min' => 'Please enter minimum :min teams',
       ];
 
       $validator = Validator::make($data, [
@@ -26,7 +27,7 @@ class TournamentController extends Controller
         'description' => 'required',
         'sport' => 'required',
         'date' => 'required',
-        'teams.*' => 'required|distinct',
+        'teams.*' => 'required|distinct|array_min:2',
       ], $messages);
 
       return $validator;
