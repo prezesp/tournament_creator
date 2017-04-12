@@ -41,7 +41,6 @@ class ChangePasswordController extends Controller
       $validator = $this->admin_credential_rules($request_data);
       if ($validator->fails())
       {
-        //return response()->json(array('error' => $validator->getMessageBag()->toArray()), 400);
         return redirect()->back()->withErrors($validator->getMessageBag()->toArray());
       }
       else
@@ -64,7 +63,6 @@ class ChangePasswordController extends Controller
         else
         {
           $error = array('current_password' => 'Please enter correct current password');
-          //return response()->json(array('error' => $error), 400);
           return redirect()->back()->withErrors($error);
         }
       }

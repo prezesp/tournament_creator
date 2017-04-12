@@ -40,8 +40,9 @@ return [
     'groups_count' => 'Liczba grup',
     'add_team' => 'Dodaj drużynę',
     'shuffle' => 'Losuj',
-    'twice_same_team_warning' => 'Wprowadziłeś dwa razy tę samą drużynę',
-    'empty_names_warning' => 'Nazwy zespołów nie mogą być puste.',
+    'e_twice_same_team_warning' => 'Wprowadziłeś dwa razy tę samą drużynę.',
+    'e_empty_names_warning' => 'Nazwy zespołów nie mogą być puste.',
+    'e_teams_equals_seeds' => 'Liczba zespołów musi być równa liczbie miejsc w playoff.',
 
     'summary' => 'Podsumowanie',
     'create' => 'Utwórz',

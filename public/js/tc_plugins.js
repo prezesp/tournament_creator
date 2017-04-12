@@ -153,7 +153,7 @@ var shuffle = function (a) {
   // MOD TEAMS
   $.fn.teams_plugin = function(options, args) {
     // domyślny typ
-    type = 'GP';
+    var type = 'GP';
 
     // znalezienie kontrolek
     var mod_plugin_container  = $(this);
@@ -161,16 +161,28 @@ var shuffle = function (a) {
     var mod_alert_empty       = $(this).find('.alert-danger').eq(1);
     var mod_team_counter      = $(this).find('.team_counter').eq(0);
 
+    var self = this;
     // metody publiczne
     var methods = {
         setType: function() {
           //wystawiona metoda
-          type = args['type'];
-          mod_plugin_container.find('input[name="group_counter"]').closest(".form-group").css('display', (type == "GP") ? 'block': 'none');
-          mod_plugin_container.find('.group-name').css('display', (type == "GP") ? 'inline-block': 'none');
+          self.type = args['type'];
+          mod_plugin_container.find('input[name="group_counter"]').closest(".form-group").css('display', (self.type == "GP") ? 'block': 'none');
+          mod_plugin_container.find('.group-name').css('display', (self.type == "GP") ? 'inline-block': 'none');
         },
         validate: function() {
-          return validate();
+          customValidator = args['custom_validator'];
+          var itemCount = mod_plugin_container.find('input[name="teams[]"]').length;
+          return customValidator(self.type, itemCount) && validate();
+        },
+        initByValues: function() {
+          var items = args['items'];
+          for (var i=0; i<items.length; i++) {
+            if (i!=0) {
+              addItem(false);
+            }
+            mod_plugin_container.find('input[name="teams[]"]').eq(i).val(items[i]);
+          }
         }
     };
 
@@ -221,14 +233,14 @@ var shuffle = function (a) {
 
         result = (valid && !hasEmpty);
       });
-      return result;
+      return result
     }
 
     // usunięcie itemu
     function removeItem(that) {
       var index = $(that).index();
       $(that).remove();
-      mod_plugin_container.find('input[name="teams[]"]')[index-2].focus();
+      mod_plugin_container.find('input[name="teams[]"]')[index-1].focus();
       calculateGroups();
       dynamicValidate();
     };

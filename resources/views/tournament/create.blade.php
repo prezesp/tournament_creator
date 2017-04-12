@@ -12,20 +12,28 @@
               <div class="panel-heading">{{ trans('tournament.create_tournament') }}</div>
 
               <div class="panel-body">
-
-                <div class="form-group">
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger alert-dismissable">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">{{ trans('tournament.name') }}</label>
                   <div class="col-sm-8">
-                    {{ Form::text('name', '', array('class' => 'form-control', 'placeholder' => trans('tournament.name') , 'required')) }}
+                    {{ Form::text('name', '', array('class' => 'form-control', 'placeholder' => trans('tournament.name'), 'required')) }}
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">{{ trans('tournament.description') }}</label>
                   <div class="col-sm-8">
-                    {{ Form::textarea('description', '', array('class' => 'form-control', 'placeholder' => trans('tournament.description'), 'rows' => 3, 'required')) }}
+                    {{ Form::textarea('description', old('description'), array('class' => 'form-control', 'placeholder' => trans('tournament.description'), 'rows' => 3, 'required')) }}
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group{{ $errors->has('sport') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Sport</label>
                   <div class="col-sm-8">
                     <div class='input-group'>
@@ -44,11 +52,11 @@
                     {{ Form::text('webpage', '', array('class' => 'form-control', 'placeholder' => 'www.your-site.com')) }}
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">{{ trans('tournament.date') }}</label>
                   <div class="col-sm-8">
                     <div class='input-group date'>
-                      <input type='text' name="date" class="form-control" pattern="^[0-9]{4,}-[0-9]{2}-[0-9]{2}$" required/>
+                      <input type='text' name="date" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" pattern="^[0-9]{4,}-[0-9]{2}-[0-9]{2}$" required/>
                       <span class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </span>
@@ -72,16 +80,39 @@
                     {{ Form::select('seeds', array('2' => trans('tournament.2seed'), '4' => trans('tournament.4seed'), '8' => trans('tournament.8seed'), '16' => trans('tournament.16seed')), '2', array('class' => 'form-control')) }}
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group create-form-points">
                   <label class="col-sm-3 control-label">{{ trans('tournament.points') }}</label>
                   <div class="col-sm-8">
-                    <div class="input-group">
-                      <span class="input-group-addon">Win</span>
-                      {{ Form::text('win_pts','3.0', array('class' => 'form-control')) }}
-                      <span class="input-group-addon">Draw</span>
-                      {{ Form::text('draw_pts','1.0', array('class' => 'form-control')) }}
-                      <span class="input-group-addon">Lose</span>
-                      {{ Form::text('lose_pts','0.0', array('class' => 'form-control')) }}
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-xs-4">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon hidden-xs">Win</span>
+                              <span class="input-group-addon visible-xs-table-cell">W</span>
+                              {{ Form::text('win_pts', '3.0', array('class' => 'form-control', 'pattern' => '^[0-9]{1,}(\.[0-9]{1,2})?$', 'required')) }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-4">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon hidden-xs">Draw</span>
+                              <span class="input-group-addon visible-xs-table-cell">D</span>
+                              {{ Form::text('draw_pts', '1.0', array('class' => 'form-control', 'pattern' => '^[0-9]{1,}(\.[0-9]{1,2})?$', 'required')) }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-4">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon hidden-xs">Lose</span>
+                              <span class="input-group-addon visible-xs-table-cell">L</span>
+                              {{ Form::text('loss_pts', '0.0', array('class' => 'form-control', 'pattern' => '^[0-9]{1,}(\.[0-9]{1,2})?$', 'required')) }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -117,19 +148,30 @@
                   <div class="form-group">
                     <label class="col-sm-3 control-label">{{ trans('tournament.teams') }} <span class='team_counter'></span></label>
                     <div class="col-sm-8 item-container">
-                      <div class="input-group group-div">
-                      </div>
                     </div>
                   </div>
                   <div class="form-group alerts">
                     <div class="col-sm-offset-3 col-sm-8">
                       <div class="alert alert-danger" style="display:none">
-                        <strong>{{ trans('common.warning') }}!</strong> {{ trans('tournament.twice_same_team_warning') }}
+                        <strong>{{ trans('common.warning') }}!</strong> {{ trans('tournament.e_twice_same_team_warning') }}
                       </div>
                       <div class="alert alert-danger alert-dismissable" style="display:none">
                         <button type="button" class="close" aria-hidden="true" onclick="$(this).parent().hide()">&times;</button>
-                        <strong>{{ trans('common.warning') }}!</strong> {{ trans('tournament.empty_names_warning') }}
+                        <strong>{{ trans('common.warning') }}!</strong> {{ trans('tournament.e_empty_names_warning') }}
                       </div>
+                      <div class="alert alert-danger alert-dismissable" style="display:none">
+                        <button type="button" class="close" aria-hidden="true" onclick="$(this).parent().hide()">&times;</button>
+                        <strong>{{ trans('common.warning') }}!</strong> {{ trans('tournament.e_teams_equals_seeds') }}
+                      </div>
+                      @if ($errors->has('teams.*'))
+                        <div class="alert alert-danger alert-dismissable" style="display:none">
+                          <button type="button" class="close" aria-hidden="true" onclick="$(this).parent().hide()">&times;</button>
+                          <strong>{{ trans('common.warning') }}!</strong><br/>
+                          @foreach ($errors->get('teams.*') as $message)
+                            {{ $message[0] }}<br/>
+                          @endforeach
+                        </div>
+                        @endif
                     </div>
                   </div>
                   <div class="form-group">
@@ -159,8 +201,6 @@
 </div>
 <!--script type="text/javascript" src="{{ asset('js/YConsole-compiled.js') }}"></script-->
 <!--script type="text/javascript" >YConsole.show();</script-->
-<!-- max liczba grup w zależności od seedów -->
-
 
 <script>
 var type = 'GP';
@@ -170,23 +210,29 @@ var onTypeChange = function(type) {
   var to_hide = new Array();
   var to_show = new Array();
 
-  switch (type) {
-    case 'L': {
-        to_hide.push($('select[name="seeds"]').parentsUntil(".form-group").parent());
-        to_show.push($('input[name="win_pts"]').parentsUntil(".form-group").parent());
-      };
-      break;
-    case 'P': {
-        to_show.push($('select[name="seeds"]').parentsUntil(".form-group").parent());
-        to_hide.push($('input[name="win_pts"]').parentsUntil(".form-group").parent());
-      };
-      break;
-    case 'GP': {
-        to_show.push($('select[name="seeds"]').parentsUntil(".form-group").parent());
-        to_show.push($('input[name="win_pts"]').parentsUntil(".form-group").parent());
-      };
-      break;
+  if (type == 'DL' || type == 'L') {
+    to_hide.push($('select[name="seeds"]').parentsUntil(".form-group").parent());
+    to_show.push($('input[name="win_pts"]').parentsUntil(".container-fluid").parentsUntil(".form-group").parent());
   }
+  if (type == 'GP' || type == 'DL' || type == 'L') {
+    $('input[name="win_pts"]').attr('required', true);
+    $('input[name="draw_pts"]').attr('required', true);
+    $('input[name="lose_pts"]').attr('required', true);
+  }
+  if (type == 'P') {
+    $('input[name="win_pts"]').removeAttr('required');
+    $('input[name="draw_pts"]').removeAttr('required');
+    $('input[name="loss_pts"]').removeAttr('required');
+  }
+  if (type == 'P') {
+    to_show.push($('select[name="seeds"]').parentsUntil(".form-group").parent());
+    to_hide.push($('input[name="win_pts"]').parentsUntil(".container-fluid").parentsUntil(".form-group").parent());
+  }
+  if (type == 'GP') {
+    to_show.push($('select[name="seeds"]').parentsUntil(".form-group").parent());
+    to_show.push($('input[name="win_pts"]').parentsUntil(".container-fluid").parentsUntil(".form-group").parent());
+  }
+
   to_hide.forEach(function (div) {
     $(div).animate({
       'opacity': 0
@@ -223,6 +269,14 @@ $( document ).ready(function() {
   //var plugin = $('.mod-plugin-container').teams_plugin(undefined, { 'debug' : false });
   var plugin = $('.mod-plugin-container').teams_plugin();
 
+  @if (!empty(old('teams')))
+    var values = new Array();
+    @foreach (old('teams') as $team)
+      values.push('{{ is_null($team) ? "" : $team }}');
+    @endforeach
+    plugin.teams_plugin('initByValues', {'items': values });
+  @endif
+
   $('select[name="type"]').change(function() {
     type = $(this).val();
     onTypeChange(type);
@@ -247,21 +301,26 @@ $( document ).ready(function() {
   input.change(function() {
     var current = input.typeahead("getActive");
     if (current) {
-      // Some item from your model is active!
-      if (current.name == input.val()) {
-        // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
-      } else {
+      if (current.name != input.val())
+      {
         input.val('');
-        // This means it is only a partial match, you can either add a new item
-        // or take the active if you don't want new items
       }
-    } else {
-      // Nothing is active so it is a new value (or maybe empty value)
     }
   });
 
   $('#app form').on('submit', function(e) {
-    var valid = plugin.teams_plugin('validate');
+    var valid = plugin.teams_plugin('validate', {
+      'custom_validator' : function(v_type, itemCount) {
+        var alert = plugin.find('.alert-danger').eq(2);
+        if (v_type == 'P') {
+          if (itemCount != parseInt($('#app form select[name=seeds]').val())) {
+            alert.css('display', 'block');
+            return false;
+          }
+        }
+        alert.css('display', 'none');
+        return true;
+      }});
     if (!valid) {
       e.preventDefault();
     }

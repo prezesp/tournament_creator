@@ -42,8 +42,9 @@ return [
     'groups_count' => 'Groups count',
     'add_team' => 'Add team',
     'shuffle' => 'Shuffle',
-    'twice_same_team_warning' => 'You have entered twice the same team.',
-    'empty_names_warning' => 'Team names can not be empty.',
+    'e_twice_same_team_warning' => 'You have entered twice the same team.',
+    'e_empty_names_warning' => 'Team names can not be empty.',
+    'e_teams_equals_seeds' => 'The number of teams must be equal the seeds.',
 
     'summary' => 'Summary',
     'create' => 'Create',

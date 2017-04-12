@@ -405,6 +405,48 @@ body {
   color: #fff;
 }
 
+.visible-xs-table-cell {
+  display: none;
+}
+
+@media(max-width: 767px) {
+  .visible-xs-table-cell {
+    display:table-cell !important;
+  }
+  .create-form-points .row .col-xs-4:first-child .visible-xs-table-cell {
+    border-bottom-left-radius: 4px !important;
+    border-top-left-radius: 4px !important;
+  }
+}
+
+.item-container .group-div .form-control {
+  border-radius: 0px !important;
+}
+
+.item-container .group-div:first-child .form-control {
+  border-top-left-radius: 3px !important;
+}
+
+.item-container .group-div:last-child .form-control {
+  border-bottom-left-radius: 3px !important;
+}
+
+.create-form-points .row .col-xs-4 .form-control {
+  border-radius: 0px;
+}
+.create-form-points .row .col-xs-4:last-child .form-control {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.create-form-points .row .col-xs-4 .input-group-addon {
+  border-radius: 0px;
+}
+.create-form-points .row .col-xs-4:first-child .input-group-addon {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
 /* body {
   background: #f5f8fa url(../img/sports/basketball.png) right center fixed;
   background-repeat: no-repeat;
