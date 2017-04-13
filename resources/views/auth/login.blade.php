@@ -2,9 +2,10 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-      &nbsp;
-    </div>
+  <div class="row vspace"></div>
+  <div class="row vspace hidden-sm hidden-xs"></div>
+  <div class="row vspace hidden-sm hidden-xs"></div>
+  <div class="row vspace hidden-sm hidden-xs"></div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             @if( Session::has('message') )

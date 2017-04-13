@@ -1,0 +1,59 @@
+
+body {
+  background: #166675;
+}
+.register-form-group {
+  margin-bottom: 10px;
+}
+
+.register-review-panel {
+  background-color: #3097d1 !important;
+  color: #fff !important;
+}
+.panel{
+  background: rgba(255,255,255,0.9);
+}
+.panel-tc > .panel-heading {
+  background: #488D9A;
+  border-color: #488D9A;
+  color: #fff;
+}
+.panel-tc {
+  border-color: #488D9A;
+}
+body >footer {
+  background: #013C47 !important;
+}
+
+.btn-primary {
+  background-color: #BF7820;
+  border-color: #9C5C0B;
+}
+.btn-primary:hover {
+  background-color: #9C5C0B;
+  border-color: #9C5C0B;
+}
+
+.navbar {
+  background: #488D9A;
+}
+
+.navbar-default {
+  border-color: transparent;
+}
+.navbar a.navbar-brand:visited,
+.navbar .nav > li > a:link,
+.navbar .nav > li > a:visited {
+  color: #fff;
+}
+
+.navbar .nav li > .search-form .form-group i.form-control-feedback {
+  color: #fff;
+}
+.navbar .nav li > .search-form .form-group:hover i.form-control-feedback {
+  color: #166675;
+}
+
+.navbar .icon-bar {
+  background-color: #fff !important;
+}
