@@ -27,7 +27,7 @@
                         {{ Form::open([ 'method'  => 'delete', 'route' => [ 'tournament.destroy', $tournament->id ] ]) }}
                         {{ Form::hidden('id', $tournament->id) }}
                         <a class="dropdown-toggle tournament-dropdown-options" data-toggle="dropdown" role="button" aria-expanded="false">
-                          <i class="fa fa-cog"></i> {{ trans('tournament.tools') }} <span class="caret"></span></a>
+                          <i class="fa fa-cog"></i> {{ trans('tournament.tools') }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
                           @if ($tournament->user == Auth::user() || $tournament->moderators->contains(Auth::user()))

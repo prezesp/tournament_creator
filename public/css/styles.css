@@ -452,6 +452,10 @@ body {
   margin-bottom: 10px;
 }
 
+tr.clickable-row {
+  cursor: pointer;
+}
+
 /* body {
   background: #f5f8fa url(../img/sports/basketball.png) right center fixed;
   background-repeat: no-repeat;

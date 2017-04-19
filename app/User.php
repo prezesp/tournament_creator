@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     public function tournamentsAsModerator()
     {
-      return $this->belongsToMany('App\Tournament');
+      return $this->belongsToMany('App\Tournament', 'tournaments_moderators');
     }
 
 
