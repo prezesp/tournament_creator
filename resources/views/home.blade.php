@@ -50,7 +50,7 @@
           @if ($moderatedTournaments->isEmpty())
             <em> No tournaments </em>
           @else
-            @include('layouts.tournaments_list', ['tournaments' => $moderatedTournaments])
+            @include('layouts.tournaments_list_owner', ['tournaments' => $moderatedTournaments])
           @endif
         </div>
         @else
@@ -58,7 +58,7 @@
           @if ($myTournaments->isEmpty())
             <em> No tournaments </em>
           @else
-            @include('layouts.tournaments_list', ['tournaments' => $myTournaments])
+            @include('layouts.tournaments_list_owner', ['tournaments' => $myTournaments])
           @endif
         </div>
         @endif

@@ -48,28 +48,54 @@
 
 
               <div class="panel-body">
-                <h3 class="tournament-title">{{ $tournament->name }}</h3>
-                <p>
-                  {{ $tournament->description }}
-                </p>
-                <hr/>
                 <div class="row">
-                  <div class="col-sm-6">
-                    <p><i class="fa fa-calendar" aria-hidden="true"></i> {{ $tournament->date }}</p>
-                  </div>
-                  @if (!empty($tournament->www))
-                    <div class="col-sm-6">
-                      <p><i class="fa fa-info-circle" aria-hidden="true"></i> <a href="http://{{ $tournament->www }}">{{ $tournament->www }}</a></p>
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <h3 class="tournament-title">{{ $tournament->name }}</h3>
+                        <p>
+                          {{ $tournament->description }}
+                        </p>
+                        <hr/>
+                        @if (!empty($tournament->www))
+                          <div class="row"> 
+                            <div class="col-sm-12">
+                              <p>
+                                <i class="fa fa-info-circle" aria-hidden="true"></i> <a href="http://{{ $tournament->www }}">{{ $tournament->www }}</a>
+                              </p>
+                            </div>
+                          </div>
+                        @endif
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="well well-no-margin">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <p>
+                                <i class="fa fa-calendar" aria-hidden="true"></i> {{ $tournament->date }}
+                              </p>
+                            </div>
+                          </div>
+                          @if (!empty($tournament->sport))
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p>
+                                  <i class="fa fa-trophy" aria-hidden="true"></i> {{ trans('sports.'.$tournament->sport) }}
+                                </p>
+                              </div>
+                            </div>
+                          @endif
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <i class="fa fa-user" aria-hidden="true"></i> 
+                              <a href="{{ route('user.show', $tournament->user->id) }}">{{ $tournament->user->name }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  @endif
-                </div>
-                @if (!empty($tournament->sport))
-                <div class="row">
-                  <div class="col-sm-6">
-                    <i class="fa fa-trophy" aria-hidden="true"></i> {{ trans('sports.'.$tournament->sport) }}
                   </div>
                 </div>
-                @endif
               </div>
             </div>
 

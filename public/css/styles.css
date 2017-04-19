@@ -456,6 +456,23 @@ tr.clickable-row {
   cursor: pointer;
 }
 
+td.list_details {
+  padding: 0px !important;
+  border-top: none !important;
+}
+
+td.list_details > div > div:first-child {
+  border-top:1px #ddd solid;
+  height: 0px;
+}
+
+td.list_details div.row > div {
+  padding: 8px;
+}
+
+.well-no-margin {
+  margin-bottom: 0px;
+}
 /* body {
   background: #f5f8fa url(../img/sports/basketball.png) right center fixed;
   background-repeat: no-repeat;

@@ -24,6 +24,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('user/change', 'Auth\ChangePasswordController@index');
+
 Route::post('user/change', [
     'as' => 'user.change',
     'uses' => 'Auth\ChangePasswordController@postCredentials'
@@ -49,10 +50,11 @@ Route::resource('comment', 'CommentController');
 
 Route::resource('sport', 'SportController');
 
-
-
-
 Route::get('/users/search/{username}', 'UserController@search')->middleware('auth');
+
+Route::resource('user', 'UserController');
+
+
 
 Route::get('locale/{locale?}',
     [
